@@ -7,13 +7,15 @@
 #include <string>
 
 int currentFileIndex = 1;  // Start with the first point cloud file
-int FileInc = 10;  // Start with the first point cloud file
+int FileInc = 10;
+const std::string camera_config_path = CAMERA_CONFIG_PATH;
+const std::string dataset_path = DATASET_PATH;
 pcl::PointCloud<pcl::PointXYZI>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZI>);
 
 bool loadPointCloud(int fileIndex, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud) {
     int run = 0;
     std::string env = "c4c_garage";
-    std::string env_dir = env + "_run" +  std::to_string(run) + "/";
+    std::string env_dir = dataset_path + env + "_run" +  std::to_string(run) + "/";
     std::string lidar_dir = env_dir + "lidar/";
     std::string filename = lidar_dir + "pointclouds/lidar_pointcloud_" + std::to_string(fileIndex) + ".bin";
     std::ifstream inputFile(filename, std::ios::binary);
@@ -81,10 +83,10 @@ void keyboardEventOccurred(const pcl::visualization::KeyboardEvent &event, void 
         }
 
         if (event.getKeySym() == "s") {
-            viewer->saveCameraParameters("camera_params.txt");
+            viewer->saveCameraParameters(camera_config_path);
             std::cout << "Camera parameters saved." << std::endl;
         } else if (event.getKeySym() == "l") {
-            viewer->loadCameraParameters("camera_params.txt");
+            viewer->loadCameraParameters(camera_config_path);
             std::cout << "Camera parameters loaded." << std::endl;
         }
     }
@@ -103,7 +105,7 @@ int main() {
     // Add point cloud with intensity colormap
     pcl::visualization::PointCloudColorHandlerGenericField<pcl::PointXYZI> intensity_distribution(cloud, "intensity");
     viewer->addPointCloud<pcl::PointXYZI>(cloud, intensity_distribution, "sample cloud");
-    viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "sample cloud");
+    viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 3, "sample cloud");
     viewer->addCoordinateSystem(1.0);
     viewer->initCameraParameters();
 

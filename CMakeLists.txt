@@ -23,6 +23,10 @@ link_directories(${PCL_LIBRARY_DIRS} ${VTK_LIBRARY_DIRS})
 # Add compile definitions for PCL and VTK
 add_definitions(${PCL_DEFINITIONS} ${VTK_DEFINITIONS})
 
+# Define the path to the config directory
+add_definitions(-DCAMERA_CONFIG_PATH="${CMAKE_SOURCE_DIR}/config/camera_params.txt")
+add_definitions(-DDATASET_PATH="${CMAKE_SOURCE_DIR}/coloradar_plus_dataset/")
+
 # Add the executable
 add_executable(visualize_pc src/visualize_pc.cpp)
 
