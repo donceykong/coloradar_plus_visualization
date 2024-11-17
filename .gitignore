@@ -1,4 +1,7 @@
 
+# Ignore nested datasat (If added into directory for testing)
+*coloradar_plus_dataset/
+
 # Ignore VS Code files
 .vscode
 
