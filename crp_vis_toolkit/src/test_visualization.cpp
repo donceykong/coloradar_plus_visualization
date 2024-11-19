@@ -116,7 +116,8 @@ bool setImage(int fileIndex) {
 
 // Handles keyboard events for navigation
 void keyboardEventOccurred(const pcl::visualization::KeyboardEvent &event, void *viewer_void) {
-    std::cout << std::fixed << std::setprecision(12);
+    // std::cout << std::fixed << std::setprecision(12);
+    std::cout.precision(20);
     if (event.keyDown()) {
         if (event.getKeySym() == "Up") {
             currentFileIndex += FileInc;
@@ -197,7 +198,7 @@ int main() {
     if (!setImage(currentFileIndex)) {
         return 1;
     }
-    
+
     pointCloudHandler.downsample(cloud, downsampledCloud, 0.1f);
 
     updatePointCloudDisplay(currentFileIndex);
